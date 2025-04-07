@@ -3,8 +3,8 @@ import { CalendarList } from 'react-native-calendars';
 import { Text, View, StyleSheet } from 'react-native';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
-import { getLunarDataForMonth } from './utils/lunarHelper';
-import { fetchHolidayMap } from './utils/holidayHelper';
+import { getLunarDataForMonth } from '../utils/lunarHelper';
+import { fetchHolidayMap } from '../utils/holidayHelper';
 
 dayjs.locale('zh-cn');
 
@@ -13,6 +13,7 @@ export default function App() {
   const loadedYears = new Set<number>();
 
   const loadLunarForMonth = async (year: number, month: number) => {
+    console.log(`📆 开始加载农历数据 ${year}-${month}`);
     const lunarData = getLunarDataForMonth(year, month);
     // 若该年份节假日尚未加载，加载一次
     if (!loadedYears.has(year)) {
@@ -93,7 +94,9 @@ export default function App() {
           );
         }}
         onVisibleMonthsChange={(months) => {
+
           months.forEach((month) => {
+            console.log("ffffaaafadsfasdf");
             const year = parseInt(month.year, 10);
             const m = parseInt(month.month, 10);
             const key = `${year}-${String(m).padStart(2, '0')}-01`;
